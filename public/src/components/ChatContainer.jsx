@@ -57,7 +57,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on("msg-recieve", msg => {
+      socket.current.on("recieve", msg => {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
@@ -86,7 +86,7 @@ export default function ChatContainer({ currentChat, socket }) {
             <h3>{currentChat.username}</h3>
           </div>
         </div>
-        <Logout />
+        <Logout socket={socket} />
       </div>
       <div className="chat-messages">
         {messages.map(message => {

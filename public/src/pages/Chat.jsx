@@ -14,7 +14,9 @@ export default function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
-
+  console.log(contacts)
+  // let [socketUsers, setSocketUsers] = useState([]);
+  // let [onlineUsers, setOnlineUsers] = useState([]);
   // getting current user details from local host and storing it in currentUser state variable
   useEffect(async () => {
     if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
@@ -33,6 +35,9 @@ export default function Chat() {
     if (currentUser) {
       socket.current = io(host);
       socket.current.emit("add-user", currentUser._id);
+      socket.current.on("onlineUsers", (payload)=>{
+        console.log(socketUsers);
+      })
     }
   }, [currentUser]);
 
@@ -48,6 +53,18 @@ export default function Chat() {
     }
   }, [currentUser]);
 
+//   useEffect(()=>{
+//      const onlineUsers = contacts.filter((user) => {
+//         // Find the corresponding socket user using userId
+//         const socketUser = socketUsers.find(
+//           (socketUser) => socketUser.userId === user._id
+//         );
+
+//         // If a matching socket user is found, include it in the result
+//         return socketUser !== undefined;
+//   })
+//   setOnlineUsers(onlineUsers);
+// });
   // function to update currentChat
   const handleChatChange = chat => {
     setCurrentChat(chat);
