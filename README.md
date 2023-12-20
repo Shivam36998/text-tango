@@ -1,6 +1,6 @@
 # text-tango
 
-Frontend => PRANJAL GOGOI
+# Frontend => PRANJAL GOGOI
 Backend => SHIVAM PRAJAPATI
 
 HOW TO RUN THE PROJECT LOCALLY ?
