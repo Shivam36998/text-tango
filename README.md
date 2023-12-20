@@ -1,7 +1,7 @@
 # text-tango
 
-# Frontend => PRANJAL GOGOI
-# Backend => SHIVAM PRAJAPATI
+<h2>Frontend => PRANJAL GOGOI</h2>
+<h2>Backend => SHIVAM PRAJAPATI</h2>
 
 # HOW TO RUN THE PROJECT LOCALLY ?
 <p>cd public</p>
