@@ -1,13 +1,13 @@
 # text-tango
 
 # Frontend => PRANJAL GOGOI
-Backend => SHIVAM PRAJAPATI
+# Backend => SHIVAM PRAJAPATI
 
-HOW TO RUN THE PROJECT LOCALLY ?
-cd public
-npm install
-npm run start
-cd..
-cd server
-npm install
-npm run start
+# HOW TO RUN THE PROJECT LOCALLY ?
+<p>cd public</p>
+<p>npm install</p>
+<p>npm run start</p>
+<p>cd..</p>
+<p>cd server</p>
+<p>npm install</p>
+<p>npm run start</p>
