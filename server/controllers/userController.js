@@ -13,8 +13,8 @@ export const login = async (req, res, next) => {
       return res.json({ msg: "Incorrect Username or Password", status: false });
     delete user.password;
     return res.json({ status: true, user });
-  } catch (ex) {
-    next(ex);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -35,8 +35,8 @@ export const register = async (req, res, next) => {
     });
     delete user.password;
     return res.json({ status: true, user });
-  } catch (ex) {
-    next(ex);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -49,8 +49,8 @@ export const getAllUsers = async (req, res, next) => {
       "_id",
     ]);
     return res.json(users);
-  } catch (ex) {
-    next(ex);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -70,7 +70,7 @@ export const setAvatar = async (req, res, next) => {
       isSet: userData.isAvatarImageSet,
       image: userData.avatarImage,
     });
-  } catch (ex) {
-    next(ex);
+  } catch (error) {
+    console.log(error);
   }
 };

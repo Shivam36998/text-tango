@@ -4,11 +4,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
 
-export default function Contacts({ contacts, changeChat, }) {
+export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  const [onlyOnline, setOnlyOnline] = useState(false);
   useEffect(async () => {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
@@ -31,39 +30,28 @@ export default function Contacts({ contacts, changeChat, }) {
             />
             <h3>Text-Tango</h3>
           </div>
-          {/* <div className="onlineUsers">
-            <input
-              className="onlineUsersCheckbox"
-              type="checkbox"
-              value={onlyOnline}
-              onClick={(e) => {
-                setContacts(onlineUsers)
-                setOnlyOnline(e.target.value);
-              }}
-            />
-            <span>Online User</span>
-          </div>  */}
           <div className="contacts">
-            {contacts.map((contact, index) => {
-              return (
-                <div
-                  key={contact._id}
-                  className={`contact ${
-                    index === currentSelected ? "selected" : ""
-                  }`}
-                  onClick={() => changeCurrentChat(index, contact)}>
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt=""
-                    />
+            {contacts.length &&
+              contacts.map((contact, index) => {
+                return (
+                  <div
+                    key={contact._id}
+                    className={`contact ${
+                      index === currentSelected ? "selected" : ""
+                    }`}
+                    onClick={() => changeCurrentChat(index, contact)}>
+                    <div className="avatar">
+                      <img
+                        src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="username">
+                      <h3>{contact.username}</h3>
+                    </div>
                   </div>
-                  <div className="username">
-                    <h3>{contact.username}</h3>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <div className="current-user">
             <div className="avatar">

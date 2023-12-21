@@ -35,7 +35,8 @@ const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)
 );
 
-// const httpServer = createServer(app); // Create an HTTP server
+// const httpServer = createServer(app);
+// Create an HTTP server
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -73,7 +74,6 @@ function handleAddUser(socket, userId) {
 
 function handleSendMessage(socket, data) {
   const sendUserSocket = onlineUsers.find((item) => item.userId === data.to);
-  console.log(data, sendUserSocket.socketId, onlineUsers)
   if (sendUserSocket) {
     socket.to(sendUserSocket.socketId).emit("recieve", data.msg);
   }
