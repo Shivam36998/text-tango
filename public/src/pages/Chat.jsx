@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +16,9 @@ export default function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
+  let [socketUsers, setSocketUsers] = useState([]);
+  let [onlineUsers, setOnlineUsers] = useState([]);
+  const [onlyOnline, setOnlyOnline] = useState(false);
 
   // getting current user details from local host and storing it in currentUser state variable
   useEffect(async () => {
@@ -33,8 +38,11 @@ export default function Chat() {
     if (currentUser) {
       socket.current = io(host);
       socket.current.emit("add-user", currentUser._id);
+      socket.current.on("onlineUsers", (payload) => {
+        setSocketUsers(payload);
+      });
     }
-  }, [currentUser]);
+  }, [contacts]);
 
   // get request to allUsersRoute to get currentUser's all contacts in contacts state variable
   useEffect(async () => {
@@ -48,19 +56,27 @@ export default function Chat() {
     }
   }, [currentUser]);
 
-  // function to update currentChat
-  const handleChatChange = chat => {
+  const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
+
+
   return (
     <>
       <Container>
         <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
+            <Contacts
+              contacts={contacts}
+              changeChat={handleChatChange}
+            />
           {currentChat === undefined ? (
             <Welcome currentUser={currentUser} />
           ) : (
-            <ChatContainer currentChat={currentChat} socket={socket} />
+            <ChatContainer
+              socketUsers = {socketUsers}
+              currentChat={currentChat}
+              socket={socket}
+            />
           )}
         </div>
       </Container>

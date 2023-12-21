@@ -6,10 +6,11 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
 
-export default function ChatContainer({ currentChat, socket }) {
+export default function ChatContainer({ currentChat, socket, socketUsers }) {
   const scrollRef = useRef();
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [online, setOnline] = useState(false);
 
   // post request to receiveMessageRoute API and putting data in messages state varibale
   useEffect(async () => {
@@ -22,6 +23,13 @@ export default function ChatContainer({ currentChat, socket }) {
     });
     setMessages(response.data);
   }, [currentChat]);
+
+  useEffect(()=>{
+  let ind = socketUsers.findIndex(data => data.userId === currentChat._id);
+  if (ind === -1) setOnline(false);
+  else setOnline(true);
+  console.log(socketUsers, currentChat._id, ind);
+  }, [currentChat, socketUsers])
 
   useEffect(() => {
     const getCurrentChat = async () => {
@@ -57,7 +65,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on("msg-recieve", msg => {
+      socket.current.on("recieve", msg => {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
@@ -84,9 +92,10 @@ export default function ChatContainer({ currentChat, socket }) {
           </div>
           <div className="username">
             <h3>{currentChat.username}</h3>
+            {online && <div style={{color: "green"}}>Online</div>}
           </div>
         </div>
-        <Logout />
+        <Logout socket={socket} />
       </div>
       <div className="chat-messages">
         {messages.map(message => {

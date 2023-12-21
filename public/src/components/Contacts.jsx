@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
@@ -22,31 +24,34 @@ export default function Contacts({ contacts, changeChat }) {
       {currentUserImage && currentUserImage && (
         <Container>
           <div className="brand">
-            <img src={Logo} alt="logo" />
+            <img
+              src={Logo}
+              alt="logo"
+            />
             <h3>Text-Tango</h3>
           </div>
           <div className="contacts">
-            {contacts.map((contact, index) => {
-              return (
-                <div
-                  key={contact._id}
-                  className={`contact ${
-                    index === currentSelected ? "selected" : ""
-                  }`}
-                  onClick={() => changeCurrentChat(index, contact)}
-                >
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt=""
-                    />
+            {contacts.length &&
+              contacts.map((contact, index) => {
+                return (
+                  <div
+                    key={contact._id}
+                    className={`contact ${
+                      index === currentSelected ? "selected" : ""
+                    }`}
+                    onClick={() => changeCurrentChat(index, contact)}>
+                    <div className="avatar">
+                      <img
+                        src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="username">
+                      <h3>{contact.username}</h3>
+                    </div>
                   </div>
-                  <div className="username">
-                    <h3>{contact.username}</h3>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <div className="current-user">
             <div className="avatar">
@@ -139,6 +144,23 @@ const Container = styled.div`
       h2 {
         color: white;
       }
+    }
+  }
+  .onlineUsers{
+    display: flex;
+    color: #fff;
+    height: 60px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-right: 10px;
+    .onlineUsersCheckbox{
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+    span{
+      display: flex;
+      align-items: center;
     }
   }
 `;

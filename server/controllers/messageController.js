@@ -1,6 +1,7 @@
-const Messages = require("../models/messageModel");
+// messageController.mjs
+import Messages from "../models/messageModel.js"; // Update file extension to .mjs
 
-module.exports.getMessages = async (req, res, next) => {
+export const getMessages = async (req, res, next) => {
   try {
     const { from, to } = req.body;
 
@@ -17,12 +18,12 @@ module.exports.getMessages = async (req, res, next) => {
       };
     });
     res.json(projectedMessages);
-  } catch (ex) {
-    next(ex);
+  } catch (error){
+    console.log(error);
   }
 };
 
-module.exports.addMessage = async (req, res, next) => {
+export const addMessage = async (req, res, next) => {
   try {
     const { from, to, message } = req.body;
     const data = await Messages.create({
@@ -33,7 +34,7 @@ module.exports.addMessage = async (req, res, next) => {
 
     if (data) return res.json({ msg: "Message added successfully." });
     else return res.json({ msg: "Failed to add message to the database" });
-  } catch (ex) {
-    next(ex);
+  } catch (error){
+    console.log(error);
   }
 };
